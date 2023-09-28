@@ -190,11 +190,7 @@ function App() {
   //       // e.g., Show error to user
   //     })
   // })
-  return (
-    <div className="App">
-      App<div id="id_verilive"></div>
-    </div>
-  )
+  return <div className="App">App</div>
 }
 
 export default App
