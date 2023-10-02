@@ -1,0 +1,19 @@
+.modal {
+  padding: 10px;
+  z-index: 500;
+  border: 1px solid #ccc;
+  background-color: white;
+  text-align: center;
+  transition: all 0.3s ease-out;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+}
