@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
 
 function App() {
+  const clickHandler = () => {
+    const frame = document.getElementById("frame")
+    frame.style.display = "block"
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={clickHandler}>Пополнить</button>
+      <iframe
+        id="frame"
+        src="https://datcom.313.kz/sign-in"
+        frameBorder="1"
+        width="100%"
+        height="100%"
+      ></iframe>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
