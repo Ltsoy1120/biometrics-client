@@ -1,11 +1,6 @@
 .App {
   text-align: center;
-  height: 100vh;
 }
 button {
   margin-bottom: 20px;
-}
-
-iframe {
-  display: none;
 }
