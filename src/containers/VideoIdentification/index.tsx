@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Navigate, useNavigate } from "react-router"
 import Button from "../../components/Button"
 import { IVeriliveResult } from "../../interfaces"
 import "./style.scss"
@@ -12,6 +13,7 @@ const VideoIdentification = () => {
   console.log("accessToken", accessToken)
   const [veriliveResults, setVeriliveResults] = useState()
   console.log("veriliveResults", veriliveResults)
+  const navigate = useNavigate()
 
   let config = {
     recordVideo: false,
@@ -183,10 +185,9 @@ const VideoIdentification = () => {
       ClientWorkErrorDetailed: "Ошибка на клиенте, попробуйте еще раз"
     }
   }
-
   useEffect(() => {
     const getAccessToken = async () => {
-      fetch(
+      await fetch(
         `https://dev.verilive.verigram.ai:5001/paydala?person_id=${personID}`
       )
         .then(response => response.json())
@@ -195,46 +196,55 @@ const VideoIdentification = () => {
     getAccessToken()
   }, [personID])
 
-  const runVeriliveHandler = () => {
-    const verilive = window.verilive
-    verilive
-      .init(
-        "https://services.verigram.ai:8443/s/verilive/verilive",
-        api_key,
-        config
-      )
-      .then(() => {
-        console.log("Successful initialization")
-        console.log(verilive.isCameraInitialized())
-        let sessionId = verilive.start(accessToken, personID)
-        console.log("sessionId", sessionId)
+  useEffect(() => {
+    const runVeriliveHandler = async () => {
+      const verilive = window.verilive
 
-        // Successful initialization. Now you can start liveness process.
-      })
-      .catch((error: any) => {
-        console.log(error)
-        errorCallback(error)
-        // e.g., Show error to user
-      })
+      verilive
+        .init(
+          "https://services.verigram.ai:8443/s/verilive/verilive",
+          api_key,
+          config
+        )
+        .then(() => {
+          console.log("Successful initialization")
+          console.log(verilive.isCameraInitialized())
 
-    verilive.successCallback = async function (result: any) {
-      console.log("successCallback", result)
-      setVeriliveResults(result)
-      successCallback(result)
-      await verilive.dispose()
+          // Successful initialization. Now you can start liveness process.
+        })
+        .catch((error: any) => {
+          console.log(error)
+          errorCallback(error)
+          // e.g., Show error to user
+        })
+      // verilive.setVeriliveTwoURL("https://services.verigram.cloud")
+
+      let sessionId = await verilive.start(accessToken, personID)
+      console.log("sessionId", sessionId)
+
+      verilive.successCallback = async function (result: any) {
+        console.log("successCallback", result)
+        setVeriliveResults(result)
+        successCallback(result)
+        // await verilive.dispose()
+      }
+      verilive.failCallback = async function (result: any) {
+        console.log("failCallback", result)
+        setVeriliveResults(result)
+        failCallback(result)
+        // await verilive.dispose()
+      }
+      verilive.errorCallback = async function (result: any) {
+        console.log("errorCallback", result)
+        errorCallback(result)
+        // await verilive.dispose()
+      }
+      verilive.updateCallback = updateCallback
     }
-    verilive.failCallback = async function (result: any) {
-      console.log("failCallback", result)
-      setVeriliveResults(result)
-      failCallback(result)
-      await verilive.dispose()
+    if (accessToken) {
+      runVeriliveHandler()
     }
-    verilive.errorCallback = async function (result: any) {
-      console.log("errorCallback", result)
-      errorCallback(result)
-      await verilive.dispose()
-    }
-  }
+  }, [accessToken])
 
   const showResults = (data: IVeriliveResult) => {
     const results = document?.getElementById("results")
@@ -248,35 +258,41 @@ const VideoIdentification = () => {
 
   // Successful Verilive json results
   const successCallback = (data: IVeriliveResult) => {
-    showResults(data)
+    // showResults(data)
 
-    const canvas = document.getElementById(
-      "bestframe_canvas"
-    ) as HTMLCanvasElement
-    const ctx = canvas?.getContext("2d")
-    const image = new Image()
-    image.onload = function () {
-      ctx?.drawImage(image, 0, 0)
-      if (canvas) {
-        canvas.width = image.width
-        canvas.height = image.height
-      }
-      ctx?.drawImage(image, 0, 0)
-    }
-    image.src = "data: image/jpeg;base64," + data.bestframe
+    // const canvas = document.getElementById(
+    //   "bestframe_canvas"
+    // ) as HTMLCanvasElement
+    // const ctx = canvas?.getContext("2d")
+    // const image = new Image()
+    // image.onload = function () {
+    //   ctx?.drawImage(image, 0, 0)
+    //   if (canvas) {
+    //     canvas.width = image.width
+    //     canvas.height = image.height
+    //   }
+    //   ctx?.drawImage(image, 0, 0)
+    // }
+    // image.src = "data: image/jpeg;base64," + data.bestframe
+    navigate("/success-identification")
   }
 
   // Failure Verilive json results
   const failCallback = (data: IVeriliveResult) => {
     console.log("data-failCallback", data)
 
-    showResults(data)
+    // showResults(data)
+    navigate("/fail-identification")
   }
 
   // Error Verilive json results
   const errorCallback = (data: IVeriliveResult) => {
     console.log("data-errorCallback", data)
-    showResults(data)
+    // showResults(data)
+  }
+
+  function updateCallback(data: any) {
+    // console.log("updateCallback", data)
   }
 
   /*  Step 3. Inside your js file call verilive.init(url, apiKey, config)
@@ -284,40 +300,6 @@ const VideoIdentification = () => {
    *          It will return a Promise: 'resolved' if VeriLive is initialized,
    *                                    'rejected' if VeriLive has failed to initialized.
    */
-
-  //   function get_value_from_input(id) {
-  //     let element = document.getElementById(id)
-  //     return element.value
-  //   }
-
-  //   function get_value_from_checkbox(id) {
-  //     let element = document.getElementById(id)
-  //     return element.checked
-  //   }
-
-  //   function set_value_to_input(id, value) {
-  //     let element = document.getElementById(id)
-  //     element.value = value
-  //   }
-
-  //   function set_value_to_checkbox(id, value) {
-  //     let element = document.getElementById(id)
-  //     element.checked = value
-  //   }
-
-  //   function get_lang() {
-  //     let ls = document.getElementsByName("lang")
-  //     for (let i = 0; i < ls.length; i++) {
-  //       if (ls[i].checked) {
-  //         return ls[i].value
-  //       }
-  //     }
-  //   }
-
-  //   verilive.successCallback = successCallback
-  //   verilive.failCallback = failCallback
-  //   verilive.errorCallback = errorCallback
-  //   verilive.updateCallback = updateCallback
 
   // =================
   //   verilive.waitScreenStartedCallback = waitScreenStartedCallback
@@ -327,82 +309,7 @@ const VideoIdentification = () => {
   //   verilive.videoSentCallback = videoSentCallback
   //   verilive.videoSendProgressCallback = videoSendProgressCallback
   //   verilive.videoSendErrorCallback = videoSendErrorCallback
-  // =================
 
-  //   async function runVerilive() {
-  //     document.getElementById("info_verilive_js_version").innerHTML =
-  //       verilive.version
-
-  //     let url = document.getElementById("server_url").value
-  //     let url2 = document.getElementById("server_url2").value
-
-  //     let apiKey = ""
-  //     const authType = document.querySelector(
-  //       'input[name="auth_type"]:checked'
-  //     ).value
-  //     if (authType === "auth_1_0") {
-  //       apiKey = document.getElementById("api_key_input").value
-  //     }
-
-  //     let config = JSON.parse(document.getElementById("config_textarea").value)
-  //     console.log(config)
-
-  //     verilive
-  //       .init(url, apiKey, config)
-  //       .then(() => {
-  //         // document.getElementById('info_browser').innerHTML = verilive.browser.name + " v" + verilive.browser.version
-  //       })
-  //       .catch(error => {
-  //         document.getElementById("results").innerHTML = error
-  //         // document.getElementById('info_browser').innerHTML = verilive.browser.name + " v" + verilive.browser.version
-  //       })
-  //     verilive.setVeriliveTwoURL(url2)
-  //   }
-
-  // Successful VeriLive json results
-  //   function successCallback(data) {
-  //     // E.g. Show results to user
-  //     document.getElementById("results").innerHTML = JSON.stringify(
-  //       data,
-  //       undefined,
-  //       2
-  //     ).replace(/</g, "&lt;")
-  //     const canvas = document.getElementById("bestframe_canvas")
-  //     const ctx = canvas.getContext("2d")
-  //     var image = new Image()
-  //     image.onload = function () {
-  //       ctx.drawImage(image, 0, 0)
-  //       canvas.width = image.width
-  //       canvas.height = image.height
-  //       ctx.drawImage(image, 0, 0)
-  //     }
-  //     image.src = "data: image/jpeg;base64," + data.bestframe
-  //   }
-
-  // Failure VeriLive json results
-  //   function failCallback(data) {
-  //     // E.g. Show to user, say to retry again
-  //     document.getElementById("results").innerHTML = JSON.stringify(
-  //       data,
-  //       undefined,
-  //       2
-  //     ).replace(/</g, "&lt;")
-  //   }
-
-  //   function errorCallback(data) {
-  //     // E.g. Show to user, say to retry again
-  //     document.getElementById("results").innerHTML = JSON.stringify(
-  //       data,
-  //       undefined,
-  //       2
-  //     ).replace(/</g, "&lt;")
-  //   }
-
-  //   function updateCallback(data) {
-  //     // console.log(data);
-  //   }
-
-  // =================
   //   function videoRecordingNotSupportedCallback() {
   //     console.log("video recording is not supported on this browser/device")
   //   }
@@ -427,10 +334,6 @@ const VideoIdentification = () => {
   //     console.log(`Video is sent` + session_id)
   //   }
   // ==================
-
-  //   function onInitButtonClick() {
-  //     runVerilive()
-  //   }
 
   //   async function getAccessTokenFromExampleService() {
   //     const personId = document.getElementById("person_id_input").value
@@ -536,152 +439,22 @@ const VideoIdentification = () => {
   //     document.getElementById("info_current_session").innerHTML = sessionId
   //   }
 
-  //   function copyTextToClipboard(text) {
-  //     let textArea = document.createElement("textarea")
-
-  //     textArea.style.position = "fixed"
-  //     textArea.style.top = 0
-  //     textArea.style.left = 0
-  //     textArea.style.width = "2em"
-  //     textArea.style.height = "2em"
-  //     textArea.style.padding = 0
-  //     textArea.style.border = "none"
-  //     textArea.style.outline = "none"
-  //     textArea.style.boxShadow = "none"
-  //     textArea.style.background = "transparent"
-  //     textArea.value = text
-
-  //     document.body.appendChild(textArea)
-  //     textArea.focus()
-  //     textArea.select()
-
-  //     try {
-  //       let successful = document.execCommand("copy")
-  //       let msg = successful ? "successful" : "unsuccessful"
-  //       console.log("Copying text command was " + msg)
-  //     } catch (err) {
-  //       console.log("Oops, unable to copy")
-  //     }
-
-  //     document.body.removeChild(textArea)
-  //   }
-
-  //   function onCopySessionIdClick() {
-  //     copyTextToClipboard(
-  //       document.getElementById("info_current_session").innerHTML
-  //     )
-  //   }
-
-  //   function onCopyBrowserClick() {
-  //     copyTextToClipboard(document.getElementById("info_browser").innerHTML)
-  //   }
-
-  //   async function onStopButtonClick() {
-  //     await verilive.stop()
-  //   }
-
-  //   function cacheInput(el) {
-  //     localStorage.setItem(el.attributes["name"].value, el.value)
-  //   }
-
-  //   function unCacheInputs(root_el) {
-  //     let inputs = root_el.children
-  //     for (let i = 0; i < inputs.length; i++) {
-  //       let el = inputs[i]
-  //       if (
-  //         el.tagName.toLowerCase() != "input" ||
-  //         el.attributes["type"].value != "text"
-  //       ) {
-  //         try {
-  //           unCacheInputs(el)
-  //         } catch (e) {}
-  //         continue
-  //       }
-  //       let cachedVal = localStorage.getItem(el.attributes["name"].value)
-  //       if (cachedVal != null) {
-  //         el.value = cachedVal
-  //       }
-  //     }
-  //   }
-
-  //   window.onload = function () {
-  //     unCacheInputs(document.documentElement)
-  //   }
-
-  // async function onDisposeButtonClick() {
-  //     await verilive.dispose();
-  // }
-
-  //   function updateAuthType() {
-  //     let authType = document.querySelector(
-  //       'input[name="auth_type"]:checked'
-  //     ).value
-  //     let tokenWay = document.querySelector(
-  //       'input[name="token_way"]:checked'
-  //     ).value
-
-  //     let accessTokenP = document.getElementById("access_token_p")
-  //     let directTokenApiKeyP = document.getElementById("direct_token_p")
-  //     let apiKeyP = document.getElementById("api_key_p")
-
-  //     if (authType === "auth_1_1") {
-  //       accessTokenP.style.display = "block"
-  //       apiKeyP.style.display = "none"
-  //       if (tokenWay == "example_token") {
-  //         directTokenApiKeyP.style.display = "none"
-  //       } else if (tokenWay == "direct_token") {
-  //         directTokenApiKeyP.style.display = "block"
-  //       }
-  //     } else if (authType === "auth_1_0") {
-  //       accessTokenP.style.display = "none"
-  //       apiKeyP.style.display = "block"
-  //       directTokenApiKeyP.style.display = "none"
-  //     } else {
-  //       accessTokenP.style.display = "none"
-  //       apiKeyP.style.display = "none"
-  //       directTokenApiKeyP.style.display = "none"
-  //     }
-  //   }
-
-  //   document.getElementById("auth_type").addEventListener(
-  //     "change",
-  //     function (e) {
-  //       updateAuthType()
-  //     },
-  //     false
-  //   )
-  //   document.getElementById("token_way").addEventListener(
-  //     "change",
-  //     function (e) {
-  //       updateAuthType()
-  //     },
-  //     false
-  //   )
-
-  //   updateAuthType()
-
-  // For PWA Support
-  //   if ("serviceWorker" in navigator) {
-  //     window.addEventListener("load", () => {
-  //       navigator.serviceWorker.register("./sw.js").then(() => {
-  //         console.log("Service Worker Registered")
-  //       })
-  //     })
-  //   }
-
   return (
     <>
-      <div className="video-identification">
+      {/* <div id="id_verilive"></div> */}
+
+      {/* <div className="video-identification">
         <img src="/static/images/video_id.png" alt="video_id" />
         <h1>Идентификация по видео</h1>
         <Button onClick={() => runVeriliveHandler()} width={328}>
           Начать
         </Button>
-      </div>
-      <div className="verilive-results">
+      </div> */}
+      {/* <div className="verilive-results">
         <pre id="results"></pre>
         <canvas id="bestframe_canvas"></canvas>
       </div>
+      <div className="error-modal"></div> */}
     </>
   )
 }

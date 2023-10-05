@@ -16,3 +16,15 @@
 .verilive-results {
   width: 500px;
 }
+
+.verilive_innerWrapper {
+  .verilive_video {
+    width: auto;
+    height: 100vh;
+    right: 0;
+    margin: 0 auto;
+  }
+  .verilive_overlayCanvas {
+    margin: 0 auto;
+  }
+}

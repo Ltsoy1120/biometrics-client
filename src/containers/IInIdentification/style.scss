@@ -1,0 +1,41 @@
+.identification {
+  width: 500px;
+  background: #f4f6f8;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  input {
+    width: 330px;
+    height: 55px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #80868c;
+    color: #80868c;
+    padding: 15px 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+  }
+  span {
+    font-size: 12px;
+    color: red;
+    text-align: left;
+    margin-bottom: 0;
+  }
+}
+
+.agreement {
+  width: 320px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #4d565f;
+  text-align: center;
+  a {
+    color: #2979ff;
+    margin-left: 5px;
+  }
+}
