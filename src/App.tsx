@@ -1,9 +1,8 @@
 import React from "react"
-import IinIdentification from "./containers/IInIdentification"
 import { Routes, Route } from "react-router-dom"
-import VideoIdentification from "./containers/VideoIdentification"
 import SuccessIdentification from "./containers/SuccessIdentification"
 import FailIdentification from "./containers/FailIdentification"
+import Identification from "./pages/Identification"
 
 function App() {
   return (
@@ -16,8 +15,7 @@ function App() {
       }}
     >
       <Routes>
-        <Route path="/" element={<IinIdentification />} />
-        <Route path="/video-identification" element={<VideoIdentification />} />
+        <Route path="/" element={<Identification />} />
         <Route
           path="/success-identification"
           element={<SuccessIdentification />}

@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom"
 import Button from "../../components/Button"
 import "./style.scss"
 
-interface IUserData {
-  tokenPd?: string
-  iin: string
+interface IinIdentificationProps {
+  iinHandler: (iin: string) => void
 }
-const IinIdentification = () => {
-  const [state, setState] = useState<IUserData>({ tokenPd: "", iin: "" })
+
+const IinIdentification = ({ iinHandler }: IinIdentificationProps) => {
+  const [iin, setIin] = useState<string>("")
   const [validation, setValidation] = useState<{
     isValid: boolean
     message: string
@@ -18,12 +18,12 @@ const IinIdentification = () => {
   useEffect(() => {
     const iinValidation = () => {
       const regex = /^[0-9]{12}$/
-      if (state.iin.length > 12 || !state.iin.match(regex)) {
+      if (iin.length > 12 || !iin.match(regex)) {
         setValidation({
           isValid: false,
           message: "ИИН должен содержать 12 цифр"
         })
-      } else if (state.iin.length === 12 && !!state.iin.match(regex)) {
+      } else if (iin.length === 12 && !!iin.match(regex)) {
         setValidation({
           isValid: true,
           message: ""
@@ -31,20 +31,18 @@ const IinIdentification = () => {
       }
     }
     iinValidation()
-  }, [state.iin])
+  }, [iin])
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(prevState => ({
-      ...prevState,
-      [event.target.name]: event.target.value
-    }))
+    setIin(event.target.value)
   }
 
   const showResults = () => {}
 
   const continueHandler = () => {
     console.log("click")
-    navigate("/video-identification")
+    iinHandler(iin)
+    // navigate("/video-identification")
   }
 
   return (
@@ -52,7 +50,7 @@ const IinIdentification = () => {
       <div className="identification">
         <h1>Пройти идентификацию</h1>
         <input name="iin" placeholder="Ваш ИИН" onChange={onChangeHandler} />
-        {state.iin.length > 0 && !validation?.isValid && (
+        {iin.length > 0 && !validation?.isValid && (
           <span>{validation?.message}</span>
         )}
         <Button

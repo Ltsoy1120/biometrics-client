@@ -4,8 +4,8 @@ import Backdrop from "./Backdrop"
 import styles from "./style.module.scss"
 
 interface ModalProps {
-  body: any
-  close: any
+  body: React.JSX.Element
+  close: () => void
 }
 
 const Modal = ({ body, close }: ModalProps) => {

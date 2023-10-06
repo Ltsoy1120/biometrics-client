@@ -1,8 +1,11 @@
 .modal {
-  padding: 10px;
   z-index: 500;
+  width: 500px;
   border: 1px solid #ccc;
-  background-color: white;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  line-height: 30px;
   text-align: center;
   transition: all 0.3s ease-out;
   position: absolute;
