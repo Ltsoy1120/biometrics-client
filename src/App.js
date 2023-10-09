@@ -1,17 +1,19 @@
+import { useState } from "react"
 import "./App.css"
 
 function App() {
-  const clickHandler = () => {
-    let token = "12345"
+  const [token, setToken] = useState("")
+
+  const onClickHandler = () => {
     const frameElem = document.getElementById("id_frame")
     let user = {
-      userId: "John",
-      clientId: "Olimpbet",
-      clientSecret: ""
+      userId: "user",
+      clientId: "test",
+      clientSecret: "secret"
     }
     const getToken = async () => {
       await fetch(
-        `https://biometrics.com/api/verification/organization/token`,
+        `https://biometrics.paydala.kz/api/verification/organization/token`,
         {
           method: "POST",
           headers: {
@@ -21,14 +23,14 @@ function App() {
         }
       )
         .then(response => response.json())
-        .then(data => (token = data.token))
+        .then(data => setToken(data.token))
     }
-    // getToken()
+    getToken()
     if (token) {
       localStorage.setItem("token", token)
       frameElem.innerHTML = `<iframe
       id="frame"
-      src="https://datcom.313.kz/sign-in"
+      src="https://biometrics.paydala.kz/frame/"
       frameBorder="1"
       width="1000px"
       height="500px"
@@ -37,7 +39,7 @@ function App() {
   }
   return (
     <div className="App">
-      <button onClick={clickHandler}>Пополнить</button>
+      <button onClick={onClickHandler}>Пополнить</button>
       <div id="id_frame"></div>
     </div>
   )
