@@ -16,10 +16,11 @@ function App() {
       //   width="1000px"
       //   height="500px"
       // ></iframe>`
-      document
-        .getElementById("frame")[0]
-        ?.contentWindow.postMessage(token, document.location)
-      // let win = window.frames.biometrics
+      const frame = document.getElementById("frame")
+      let win = window.frames[0].biometrics
+      console.log("frame[0]", frame[0])
+      console.log("win", win)
+      frame[0]?.contentWindow.postMessage(token, document.location)
       // const message = token
       // win.postMessage(message, "*")
     }
