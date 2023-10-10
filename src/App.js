@@ -3,7 +3,24 @@ import "./App.css"
 
 function App() {
   const [token, setToken] = useState("")
-  const frameElem = document.getElementById("id_frame")
+  console.log("token", token)
+
+  useEffect(() => {
+    if (token) {
+      const frameElem = document.getElementById("id_frame")
+      frameElem.innerHTML = `<iframe
+      id="frame"
+      name="biometrics"
+      src="https://biometrics.paydala.kz/frame/"
+      frameBorder="1"
+      width="1000px"
+      height="500px"
+    ></iframe>`
+      let win = window.frames.biometrics
+      const message = token
+      win.postMessage(message, "https://biometrics.paydala.kz/frame/")
+    }
+  }, [token])
 
   const onClickHandler = () => {
     console.log("onClickHandler")
@@ -29,20 +46,20 @@ function App() {
     }
     getToken()
 
-    if (token) {
-      console.log("token", token)
-      frameElem.innerHTML = `<iframe
-      id="frame"
-      name="biometrics"
-      src="https://biometrics.paydala.kz/frame/"
-      frameBorder="1"
-      width="1000px"
-      height="500px"
-    ></iframe>`
-      let win = window.frames.biometrics
-      const message = token
-      win.postMessage(message, "https://biometrics.paydala.kz/frame/")
-    }
+    // if (token) {
+    //   console.log("token", token)
+    //   frameElem.innerHTML = `<iframe
+    //   id="frame"
+    //   name="biometrics"
+    //   src="https://biometrics.paydala.kz/frame/"
+    //   frameBorder="1"
+    //   width="1000px"
+    //   height="500px"
+    // ></iframe>`
+    //   let win = window.frames.biometrics
+    //   const message = token
+    //   win.postMessage(message, "https://biometrics.paydala.kz/frame/")
+    // }
   }
   return (
     <div className="App">
