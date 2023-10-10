@@ -18,13 +18,13 @@ function App() {
       // ></iframe>`
       const frame = document.getElementById("frame")
       frame.style.display = "block"
-      frame.contentWindow.postMessage(token, "*")
-      console.log("frame", frame)
+      // frame.contentWindow.postMessage(token, "*")
+      // console.log("frame", frame)
 
-      let win = window.frames[0].name
+      let win = window.frames.biometrics
       console.log("win", win)
       // const message = token
-      // win.postMessage(message, "*")
+      win.postMessage("11111111", "*")
     }
   }, [token])
 
