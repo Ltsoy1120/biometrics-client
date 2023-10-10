@@ -7,15 +7,15 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      const frameElem = document.getElementById("id_frame")
-      frameElem.innerHTML = `<iframe
-      id="frame"
-      name="biometrics"
-      src="https://biometrics.paydala.kz/frame/"
-      frameBorder="1"
-      width="1000px"
-      height="500px"
-    ></iframe>`
+      //   const frameElem = document.getElementById("id_frame")
+      //   frameElem.innerHTML = `<iframe
+      //   id="frame"
+      //   name="biometrics"
+      //   src="https://biometrics.paydala.kz/frame/"
+      //   frameBorder="1"
+      //   width="1000px"
+      //   height="500px"
+      // ></iframe>`
       document
         .getElementById("frame")[0]
         ?.contentWindow.postMessage(token, document.location)
@@ -26,8 +26,6 @@ function App() {
   }, [token])
 
   const onClickHandler = () => {
-    console.log("onClickHandler")
-
     let user = {
       userId: "user",
       clientId: "test",
@@ -48,26 +46,19 @@ function App() {
         .then(data => setToken(data.token))
     }
     getToken()
-
-    // if (token) {
-    //   console.log("token", token)
-    //   frameElem.innerHTML = `<iframe
-    //   id="frame"
-    //   name="biometrics"
-    //   src="https://biometrics.paydala.kz/frame/"
-    //   frameBorder="1"
-    //   width="1000px"
-    //   height="500px"
-    // ></iframe>`
-    //   let win = window.frames.biometrics
-    //   const message = token
-    //   win.postMessage(message, "https://biometrics.paydala.kz/frame/")
-    // }
   }
   return (
     <div className="App">
       <button onClick={onClickHandler}>Пополнить</button>
-      <div id="id_frame"></div>
+      {/* <div id="id_frame"></div> */}
+      <iframe
+        id="frame"
+        name="biometrics"
+        src="https://biometrics.paydala.kz/frame/"
+        frameBorder="1"
+        width="1000px"
+        height="500px"
+      ></iframe>
     </div>
   )
 }
