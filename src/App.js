@@ -3,9 +3,9 @@ import "./App.css"
 
 function App() {
   const [token, setToken] = useState("")
+  const frameElem = document.getElementById("id_frame")
 
   const onClickHandler = () => {
-    const frameElem = document.getElementById("id_frame")
     let user = {
       userId: "user",
       clientId: "test",
@@ -26,25 +26,36 @@ function App() {
         .then(data => setToken(data.token))
     }
     getToken()
+
     if (token) {
-      localStorage.setItem("token", token)
-      frameElem.innerHTML = `<iframe
-      id="frame"
-      name="biometrics"
-      src="https://biometrics.paydala.kz/frame/"
-      frameBorder="1"
-      width="1000px"
-      height="500px"
-    ></iframe>`
+      //   frameElem.innerHTML = `<iframe
+      //   id="frame"
+      //   name="biometrics"
+      //   src="https://biometrics.paydala.kz/frame/"
+      //   frameBorder="1"
+      //   width="1000px"
+      //   height="500px"
+      // ></iframe>`
       let win = window.frames.biometrics
+      console.log("win", win)
       const message = token
       win.postMessage(message, "https://biometrics.paydala.kz/frame/")
+      console.log("win.postMessage", win.postMessage)
     }
   }
   return (
     <div className="App">
       <button onClick={onClickHandler}>Пополнить</button>
-      <div id="id_frame"></div>
+      {token && (
+        <iframe
+          id="frame"
+          name="biometrics"
+          src="https://biometrics.paydala.kz/frame/"
+          frameBorder="1"
+          width="1000px"
+          height="500px"
+        ></iframe>
+      )}
     </div>
   )
 }
