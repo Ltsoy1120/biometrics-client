@@ -16,7 +16,9 @@ function App() {
       width="1000px"
       height="500px"
     ></iframe>`
-      frameElem[0].contentWindow.postMessage(token, document.location)
+      document
+        .getElementById("frame")[0]
+        ?.contentWindow.postMessage(token, document.location)
       // let win = window.frames.biometrics
       // const message = token
       // win.postMessage(message, "*")
