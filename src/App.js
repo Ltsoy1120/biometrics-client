@@ -24,7 +24,7 @@ function App() {
       let win = window.frames.biometrics
       console.log("win", win)
       // const message = token
-      win.postMessage("11111111", "*")
+      win.postMessage(token, "*")
     }
   }, [token])
 
