@@ -17,9 +17,11 @@ function App() {
       //   height="500px"
       // ></iframe>`
       const frame = document.getElementById("frame")
+      frame.style.display = "block"
+      frame.contentWindow.postMessage(token, "*")
+      console.log("frame", frame)
 
-      frame?.contentWindow.postMessage(token, "*")
-      let win = window.frames[0].biometrics
+      let win = window.frames[0].name
       console.log("win", win)
       // const message = token
       // win.postMessage(message, "*")
@@ -59,6 +61,7 @@ function App() {
         frameBorder="1"
         width="1000px"
         height="500px"
+        style={{ display: "none" }}
       ></iframe>
     </div>
   )
