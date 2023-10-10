@@ -17,10 +17,10 @@ function App() {
       //   height="500px"
       // ></iframe>`
       const frame = document.getElementById("frame")
+
+      frame?.contentWindow.postMessage(token, "*")
       let win = window.frames[0].biometrics
-      console.log("frame[0]", frame[0])
       console.log("win", win)
-      frame[0]?.contentWindow.postMessage(token, document.location)
       // const message = token
       // win.postMessage(message, "*")
     }
