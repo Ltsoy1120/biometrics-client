@@ -38,7 +38,7 @@ function App() {
     ></iframe>`
       let win = window.frames.biometrics
       const message = token
-      win.postMessage(message, "*")
+      win.postMessage(message, "https://biometrics.paydala.kz/frame/")
     }
   }
   return (
