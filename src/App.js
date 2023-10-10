@@ -16,9 +16,10 @@ function App() {
       width="1000px"
       height="500px"
     ></iframe>`
-      let win = window.frames.biometrics
-      const message = token
-      win.postMessage(message, "https://biometrics-client.vercel.app")
+      frameElem[0].contentWindow.postMessage(token, document.location)
+      // let win = window.frames.biometrics
+      // const message = token
+      // win.postMessage(message, "*")
     }
   }, [token])
 
