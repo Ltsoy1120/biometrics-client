@@ -30,11 +30,15 @@ function App() {
       localStorage.setItem("token", token)
       frameElem.innerHTML = `<iframe
       id="frame"
+      name="biometrics"
       src="https://biometrics.paydala.kz/frame/"
       frameBorder="1"
       width="1000px"
       height="500px"
     ></iframe>`
+      let win = window.frames.biometrics
+      const message = token
+      win.postMessage(message, "https://biometrics.paydala.kz/frame/")
     }
   }
   return (
