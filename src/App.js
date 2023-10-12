@@ -27,6 +27,24 @@ function App() {
     }
   }, [state.token, state.userId, state])
 
+  useEffect(() => {
+    var onmessage = function (event) {
+      var data = event.data
+
+      console.log("data======onmessage", data)
+      if (data === "NOT_IDENTIFIED") {
+        const frame = document.getElementById("frame")
+        frame.style.display = "none"
+      }
+    }
+
+    if (typeof window.addEventListener !== "undefined") {
+      window.addEventListener("message", onmessage, false)
+    } else if (typeof window.attachEvent !== "undefined") {
+      window.attachEvent("onmessage", onmessage)
+    }
+  }, [])
+
   const onClickHandler = () => {
     const getToken = async () => {
       await fetch(
