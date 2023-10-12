@@ -81,8 +81,8 @@ function App() {
         src="https://biometrics.paydala.kz/frame/"
         allow="camera"
         frameBorder="1"
-        width="1000px"
-        height="500px"
+        width="500px"
+        height="600px"
         style={{ display: "none" }}
       ></iframe>
     </div>

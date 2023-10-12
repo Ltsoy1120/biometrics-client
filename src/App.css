@@ -32,3 +32,8 @@ label {
 input {
   padding: 10px;
 }
+@media (max-width: 560px) {
+  iframe {
+    width: 100%;
+  }
+}
