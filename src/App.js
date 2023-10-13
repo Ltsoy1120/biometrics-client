@@ -14,10 +14,7 @@ function App() {
   })
   const [personalData, setPersonalData] = useState()
   const [messageData, setMessageData] = useState()
-  console.log("user", user)
   console.log("state", state)
-  console.log("JSON.stringify(state)", JSON.stringify(state))
-  console.log("personalData", personalData)
 
   useEffect(() => {
     if (state.token && state.userId) {
@@ -62,7 +59,6 @@ function App() {
         .then(data => setPersonalData(data))
     }
     if (messageData === "IDENTIFIED" && state.token) {
-      console.log("token=====", state.token)
       getPersonalData(state.token)
     }
   }, [messageData, state.token])
@@ -114,8 +110,8 @@ function App() {
         </div>
       </div>
       <button onClick={onClickHandler}>Пополнить</button>
-      {messageData && <p>messageData : {JSON.stringify(messageData)}</p>}
-      {personalData && <p>personalData : {JSON.stringify(personalData)}</p>}
+      {/* {messageData && <p>messageData : {JSON.stringify(messageData)}</p>}
+      {personalData && <p>personalData : {JSON.stringify(personalData)}</p>} */}
       {personalData && (
         <div className="personalData">
           <p style={{ fontWeight: "bold" }}>
