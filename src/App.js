@@ -38,31 +38,33 @@ function App() {
 
         console.log("client======data======onmessage", data)
         setMessageData(data)
-        if (data === "NOT_IDENTIFIED" || data === "BLOCKED") {
-          frame.style.display = "none"
-        }
-        if (data === "IDENTIFIED") {
-          const getPersonalData = async () => {
-            await fetch(
-              `https://biometrics.paydala.kz/api/verification/personal/data`,
-              {
-                method: "GET",
-                headers: {
-                  accept: "*/*",
-                  "X-ORG-TOKEN": state.token
-                }
-              }
-            )
-              .then(response => response.json())
-              .then(data => setPersonalData(data))
-          }
-          getPersonalData()
+        if (data) {
           frame.style.display = "none"
         }
       },
       false
     )
   }, [])
+
+  useEffect(() => {
+    const getPersonalData = async token => {
+      await fetch(
+        `https://biometrics.paydala.kz/api/verification/personal/data`,
+        {
+          method: "GET",
+          headers: {
+            accept: "*/*",
+            "X-ORG-TOKEN": token
+          }
+        }
+      )
+        .then(response => response.json())
+        .then(data => setPersonalData(data))
+    }
+    if (data === "IDENTIFIED" && state.token) {
+      getPersonalData(state.token)
+    }
+  }, [data, state.token])
 
   const onClickHandler = () => {
     const getToken = async () => {
