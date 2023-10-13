@@ -13,6 +13,7 @@ function App() {
     iin: ""
   })
   const [personalData, setPersonalData] = useState()
+  const [messageData, setMessageData] = useState()
   console.log("user", user)
   console.log("state", state)
   console.log("JSON.stringify(state)", JSON.stringify(state))
@@ -36,6 +37,7 @@ function App() {
         const frame = document.getElementById("frame")
 
         console.log("client======data======onmessage", data)
+        setMessageData(data)
         if (data === "NOT_IDENTIFIED" || data === "BLOCKED") {
           frame.style.display = "none"
           return
@@ -106,6 +108,8 @@ function App() {
         </div>
       </div>
       <button onClick={onClickHandler}>Пополнить</button>
+      {messageData && <p>messageData : {JSON.stringify(messageData)}</p>}
+      {personalData && <p>personalData : {JSON.stringify(personalData)}</p>}
       {personalData && (
         <div className="personalData">
           <p style={{ fontWeight: "bold" }}>
@@ -131,6 +135,7 @@ function App() {
         frameBorder="1"
         width="500px"
         height="600px"
+        scrolling="no"
         style={{ display: "none" }}
       ></iframe>
     </div>
