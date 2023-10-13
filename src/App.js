@@ -12,11 +12,7 @@ function App() {
     token: "",
     iin: ""
   })
-  const [personalData, setPersonalData] = useState({
-    status: "status",
-    subStatus: "subStatus",
-    personalData: "personalData"
-  })
+  const [personalData, setPersonalData] = useState()
   console.log("user", user)
   console.log("state", state)
   console.log("JSON.stringify(state)", JSON.stringify(state))
