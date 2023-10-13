@@ -61,11 +61,11 @@ function App() {
         .then(response => response.json())
         .then(data => setPersonalData(data))
     }
-    if (data === "IDENTIFIED" && state.token) {
+    if (messageData === "IDENTIFIED" && state.token) {
       console.log("token=====", state.token)
       getPersonalData(state.token)
     }
-  }, [data, state.token])
+  }, [messageData, state.token])
 
   const onClickHandler = () => {
     const getToken = async () => {
