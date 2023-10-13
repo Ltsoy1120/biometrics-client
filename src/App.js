@@ -62,6 +62,7 @@ function App() {
         .then(data => setPersonalData(data))
     }
     if (data === "IDENTIFIED" && state.token) {
+      console.log("token=====", state.token)
       getPersonalData(state.token)
     }
   }, [data, state.token])
