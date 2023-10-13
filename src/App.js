@@ -49,7 +49,7 @@ function App() {
                 method: "GET",
                 headers: {
                   accept: "*/*",
-                  "X-ORG-TOKEN": token
+                  "X-ORG-TOKEN": state.token
                 }
               }
             )
