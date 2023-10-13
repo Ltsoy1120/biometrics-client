@@ -40,14 +40,17 @@ function App() {
         setMessageData(data)
         if (data === "NOT_IDENTIFIED" || data === "BLOCKED") {
           frame.style.display = "none"
-          return
         }
         if (data === "IDENTIFIED") {
           const getPersonalData = async () => {
             await fetch(
               `https://biometrics.paydala.kz/api/verification/personal/data`,
               {
-                method: "GET"
+                method: "GET",
+                headers: {
+                  accept: "*/*",
+                  "X-ORG-TOKEN": token
+                }
               }
             )
               .then(response => response.json())
