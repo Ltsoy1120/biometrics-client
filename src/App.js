@@ -12,7 +12,11 @@ function App() {
     token: "",
     iin: ""
   })
-
+  const [personalData, setPersonalData] = useState({
+    status: "status",
+    subStatus: "subStatus",
+    personalData: "personalData"
+  })
   console.log("user", user)
   console.log("state", state)
   console.log("JSON.stringify(state)", JSON.stringify(state))
@@ -32,10 +36,25 @@ function App() {
       "message",
       function (event) {
         var data = event.data
+        const frame = document.getElementById("frame")
 
-        console.log("data======onmessage", data)
-        if (data === "NOT_IDENTIFIED") {
-          const frame = document.getElementById("frame")
+        console.log("client======data======onmessage", data)
+        if (data === "NOT_IDENTIFIED" || data === "BLOCKED") {
+          frame.style.display = "none"
+          return
+        }
+        if (data === "IDENTIFIED") {
+          const getPersonalData = async () => {
+            await fetch(
+              `https://biometrics.paydala.kz/api/verification/personal/data`,
+              {
+                method: "GET"
+              }
+            )
+              .then(response => response.json())
+              .then(data => setPersonalData(data))
+          }
+          getPersonalData()
           frame.style.display = "none"
         }
       },
@@ -90,6 +109,22 @@ function App() {
         </div>
       </div>
       <button onClick={onClickHandler}>Пополнить</button>
+      {personalData && (
+        <div className="personalData">
+          <p style={{ fontWeight: "bold" }}>
+            status: <span>{personalData.status}</span>
+          </p>
+
+          <p style={{ fontWeight: "bold" }}>
+            subStatus: <span>{personalData.subStatus}</span>
+          </p>
+
+          <p style={{ fontWeight: "bold" }}>
+            personalData:{" "}
+            <span>{JSON.stringify(personalData.personalData)}</span>
+          </p>
+        </div>
+      )}
       <iframe
         id="frame"
         title="Frame"
