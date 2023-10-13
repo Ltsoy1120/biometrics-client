@@ -16,6 +16,7 @@ function App() {
   console.log("user", user)
   console.log("state", state)
   console.log("JSON.stringify(state)", JSON.stringify(state))
+  console.log("personalData", personalData)
 
   useEffect(() => {
     if (state.token && state.userId) {
