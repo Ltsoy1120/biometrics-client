@@ -4,8 +4,7 @@ import "./App.css"
 function App() {
   const [user, setUser] = useState({
     userId: "",
-    clientId: "test",
-    clientSecret: "secret"
+    phoneNumber: "73780559227"
   })
   const [state, setState] = useState({
     userId: "",
@@ -17,8 +16,8 @@ function App() {
   console.log("state", state)
 
   useEffect(() => {
+    const frame = document.getElementById("frame")
     if (state.token && state.userId) {
-      const frame = document.getElementById("frame")
       frame.style.display = "block"
 
       let win = window.frames.biometrics
@@ -32,7 +31,6 @@ function App() {
       function (event) {
         var data = event.data
         const frame = document.getElementById("frame")
-
         console.log("client======data======onmessage", data)
         setMessageData(data)
         if (data) {
@@ -70,7 +68,10 @@ function App() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            accept: "*/*",
+            "Content-Type": "application/json",
+            "X-API-KEY": "test",
+            "X-API-SECRET": "secret"
           },
           body: JSON.stringify(user)
         }
@@ -110,8 +111,6 @@ function App() {
         </div>
       </div>
       <button onClick={onClickHandler}>Пополнить</button>
-      {/* {messageData && <p>messageData : {JSON.stringify(messageData)}</p>}
-      {personalData && <p>personalData : {JSON.stringify(personalData)}</p>} */}
       {personalData && (
         <div className="personalData">
           <p style={{ fontWeight: "bold" }}>
