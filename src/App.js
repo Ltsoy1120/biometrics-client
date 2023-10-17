@@ -42,24 +42,25 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const getPersonalData = async token => {
+    const getPersonalData = async userId => {
       await fetch(
-        `https://biometrics.paydala.kz/api/verification/personal/data`,
+        `https://biometrics.paydala.kz/api/verification/personal/data/${userId}`,
         {
           method: "GET",
           headers: {
             accept: "*/*",
-            "X-ORG-TOKEN": token
+            "X-API-KEY": "test",
+            "X-API-SECRET": "secret"
           }
         }
       )
         .then(response => response.json())
         .then(data => setPersonalData(data))
     }
-    if (messageData === "IDENTIFIED" && state.token) {
-      getPersonalData(state.token)
+    if (messageData === "IDENTIFIED" && state.userId) {
+      getPersonalData(state.userId)
     }
-  }, [messageData, state.token])
+  }, [messageData, state.userId])
 
   const onClickHandler = () => {
     const getToken = async () => {
