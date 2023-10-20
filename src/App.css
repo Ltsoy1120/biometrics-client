@@ -34,7 +34,7 @@ input {
 }
 
 @media (max-width: 560px) {
-  .inputs,
+  .form,
   button,
   input,
   iframe {
