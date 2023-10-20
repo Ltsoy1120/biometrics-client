@@ -233,7 +233,7 @@ function App() {
           />
         </div>
         <button type="button" onClick={onClickHandler}>
-          Отправить
+          Отправить запрос
         </button>
       </form>
       <iframe
