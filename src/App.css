@@ -33,13 +33,29 @@ input {
   box-sizing: border-box;
   font-size: 16px;
 }
-
-table,
-td {
+.personalData {
+  width: 100%;
+}
+.table {
   border: 1px solid black;
-  border-collapse: collapse;
+  width: 100%;
+}
+.td {
+  border: 1px solid black;
   text-align: left;
   padding: 5px;
+  word-break: break-all;
+  box-sizing: border-box;
+}
+.tr {
+  width: 100%;
+  display: flex;
+}
+.td:first-child {
+  width: 30%;
+}
+.td:last-child {
+  width: 70%;
 }
 
 @media (max-width: 560px) {
@@ -48,5 +64,17 @@ td {
   input,
   iframe {
     width: 100%;
+  }
+  .tr {
+    flex-direction: column;
+  }
+
+  .td:first-child,
+  .td:last-child {
+    width: 100%;
+  }
+
+  .td:first-child {
+    background-color: antiquewhite;
   }
 }

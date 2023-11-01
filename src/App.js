@@ -401,29 +401,23 @@ function App() {
             subStatus: <span>{personalData.subStatus}</span>
           </p>
 
-          <table>
-            <tbody>
-              {Object.entries(personalData.personalData.person).map(item =>
-                item[0] === "documents" && item[1].document?.length > 0 ? (
-                  item[1].document.map(doc => (
-                    <tr key={doc.type?.code}>
-                      <td>{doc.type.nameRu}</td>
-                      <td>
-                        <span>{JSON.stringify(doc)}</span>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr key={item.type?.code}>
-                    <td>{item[0]}</td>
-                    <td>
-                      <span>{JSON.stringify(item[1])}</span>
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
+          <div class="table">
+            {Object.entries(personalData.personalData.person).map(item =>
+              item[0] === "documents" && item[1].document?.length > 0 ? (
+                item[1].document.map(doc => (
+                  <div class="tr" key={doc.type?.code}>
+                    <div class="td">{doc.type.nameRu}</div>
+                    <div class="td">{JSON.stringify(doc)}</div>
+                  </div>
+                ))
+              ) : (
+                <div class="tr" key={item.type?.code}>
+                  <div class="td">{item[0]}</div>
+                  <div class="td">{JSON.stringify(item[1])}</div>
+                </div>
+              )
+            )}
+          </div>
         </div>
       )}
     </div>
