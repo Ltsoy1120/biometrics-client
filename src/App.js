@@ -211,6 +211,149 @@ function App() {
     setState({ ...state, [name]: value })
   }
 
+  // const personalData = {
+  //   status: "IDENTIFIED",
+  //   subStatus: null,
+  //   phoneNumber: "73780559227",
+  //   personalData: {
+  //     person: {
+  //       iin: "751120401609",
+  //       name: "ЕЛЕНА",
+  //       gender: {
+  //         code: 2,
+  //         nameKz: "Әйел",
+  //         nameRu: "Женский",
+  //         changeDate: "2013-05-17T17:29:19+06:00"
+  //       },
+  //       surname: "ЦОЙ",
+  //       birthDate: "1975-11-20",
+  //       documents: {
+  //         document: [
+  //           {
+  //             name: "ЕЛЕНА",
+  //             type: {
+  //               code: "001",
+  //               nameKz: "ҚР ПАСПОРТЫ",
+  //               nameRu: "ПАСПОРТ РК",
+  //               changeDate: "2008-03-01T13:21:45+06:00"
+  //             },
+  //             number: "N11177028",
+  //             status: {
+  //               code: "00",
+  //               nameKz: "ҚҰЖАТ ЖАРАМДЫ",
+  //               nameRu: "ДОКУМЕНТ ДЕЙСТВИТЕЛЕН",
+  //               changeDate: "2008-03-01T13:21:45+06:00"
+  //             },
+  //             endDate: "2027-04-05",
+  //             surname: "ЦОЙ",
+  //             beginDate: "2017-04-06",
+  //             birthDate: "1975-11-20",
+  //             patronymic: "ГЕННАДЬЕВНА",
+  //             issueOrganization: {
+  //               code: "002",
+  //               nameKz: "ҚР ІШКІ ІСТЕР МИНИСТРЛІГІ",
+  //               nameRu: "МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ РК",
+  //               changeDate: "2008-03-01T13:21:45+06:00"
+  //             }
+  //           },
+  //           {
+  //             name: "ЕЛЕНА",
+  //             type: {
+  //               code: "002",
+  //               nameKz: "ҚР ЖЕКЕ КУӘЛІГІ",
+  //               nameRu: "УДОСТОВЕРЕНИЕ РК",
+  //               changeDate: "2008-03-01T13:21:45+06:00"
+  //             },
+  //             number: "053620489",
+  //             status: {
+  //               code: "00",
+  //               nameKz: "ҚҰЖАТ ЖАРАМДЫ",
+  //               nameRu: "ДОКУМЕНТ ДЕЙСТВИТЕЛЕН",
+  //               changeDate: "2008-03-01T13:21:45+06:00"
+  //             },
+  //             endDate: "2033-06-26",
+  //             surname: "ЦОЙ",
+  //             beginDate: "2023-06-27",
+  //             birthDate: "1975-11-20",
+  //             patronymic: "ГЕННАДЬЕВНА",
+  //             issueOrganization: {
+  //               code: "002",
+  //               nameKz: "ҚР ІШКІ ІСТЕР МИНИСТРЛІГІ",
+  //               nameRu: "МИНИСТЕРСТВО ВНУТРЕННИХ ДЕЛ РК",
+  //               changeDate: "2008-03-01T13:21:45+06:00"
+  //             }
+  //           }
+  //         ]
+  //       },
+  //       birthPlace: {
+  //         city: "-",
+  //         region: {
+  //           code: 1910270,
+  //           nameKz: "ТУРКІСІБ",
+  //           nameRu: "ТУРКСИБСКИЙ",
+  //           changeDate: "2008-03-01T13:21:45+06:00"
+  //         },
+  //         country: {
+  //           code: 398,
+  //           nameKz: "ҚАЗАҚСТАН",
+  //           nameRu: "КАЗАХСТАН",
+  //           changeDate: "2008-03-01T13:21:44+06:00"
+  //         },
+  //         district: {
+  //           code: 1910,
+  //           nameKz: "АЛМАТЫ",
+  //           nameRu: "АЛМАТЫ",
+  //           changeDate: "2008-03-01T13:21:45+06:00"
+  //         }
+  //       },
+  //       lifeStatus: {
+  //         code: 0,
+  //         nameKz: "Қалыпты",
+  //         nameRu: "Нормальный",
+  //         changeDate: "2008-03-01T13:21:45+06:00"
+  //       },
+  //       patronymic: "ГЕННАДЬЕВНА",
+  //       regAddress: {
+  //         city: "Ащибулакский, Мухаметжан Туймебаев",
+  //         region: {
+  //           code: 1907211,
+  //           nameKz: "ІЛЕ АУДАНЫ",
+  //           nameRu: "ИЛИЙСКИЙ РАЙОН",
+  //           changeDate: "2008-03-01T13:21:45+06:00"
+  //         },
+  //         street:
+  //           "ПОТРЕБИТЕЛЬСКИЙ КООПЕРАТИВ САДОВОДЧЕСКИХ ТОВАРИЩЕСТВ Алмагуль, УЛИЦА 2-Линия",
+  //         country: {
+  //           code: 398,
+  //           nameKz: "ҚАЗАҚСТАН",
+  //           nameRu: "КАЗАХСТАН",
+  //           changeDate: "2008-03-01T13:21:44+06:00"
+  //         },
+  //         building: 33,
+  //         district: {
+  //           code: 1907,
+  //           nameKz: "АЛМАТЫ",
+  //           nameRu: "АЛМАТИНСКАЯ",
+  //           changeDate: "2008-03-01T13:21:45+06:00"
+  //         },
+  //         beginDate: "2013-01-18"
+  //       },
+  //       citizenship: {
+  //         code: 398,
+  //         nameKz: "ҚАЗАҚСТАН",
+  //         nameRu: "КАЗАХСТАН",
+  //         changeDate: "2008-03-01T13:21:44+06:00"
+  //       },
+  //       nationality: {
+  //         code: 168,
+  //         nameKz: "КОРЕЙ",
+  //         nameRu: "КОРЕЯНКА",
+  //         changeDate: "2008-03-01T13:21:45+06:00"
+  //       }
+  //     }
+  //   }
+  // }
+
   return (
     <div className="App">
       <form className="form">
@@ -258,10 +401,29 @@ function App() {
             subStatus: <span>{personalData.subStatus}</span>
           </p>
 
-          <p style={{ fontWeight: "bold" }}>
-            personalData:{" "}
-            <span>{JSON.stringify(personalData.personalData)}</span>
-          </p>
+          <table>
+            <tbody>
+              {Object.entries(personalData.personalData.person).map(item =>
+                item[0] === "documents" && item[1].document?.length > 0 ? (
+                  item[1].document.map(doc => (
+                    <tr key={doc.type?.code}>
+                      <td>{doc.type.nameRu}</td>
+                      <td>
+                        <span>{JSON.stringify(doc)}</span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr key={item.type?.code}>
+                    <td>{item[0]}</td>
+                    <td>
+                      <span>{JSON.stringify(item[1])}</span>
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
