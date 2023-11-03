@@ -387,7 +387,7 @@ function App() {
         allow="camera"
         frameBorder="1"
         width="500px"
-        height="auto"
+        // height={document.body.height()}
         scrolling="no"
         style={{ display: "none" }}
       ></iframe>
