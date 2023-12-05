@@ -149,13 +149,13 @@ import { frame } from "./frame"
 
 function App() {
   const [user, setUser] = useState({
-    userId: "",
-    phoneNumber: "73780559227"
+    userId: ""
   })
   const [state, setState] = useState({
     userId: "",
     token: "",
-    iin: ""
+    iin: "",
+    phoneNumber: ""
   })
 
   const [personalData, setPersonalData] = useState()
@@ -177,7 +177,7 @@ function App() {
         .then(response => response.json())
         .then(data => setPersonalData(data))
     }
-    if (state.token) {
+    if (state.token && state.phoneNumber) {
       frame.startFrame(state, getPersonalData)
     }
   }, [state])
@@ -372,6 +372,17 @@ function App() {
             id="iin"
             name="iin"
             placeholder="Ваш ИИН"
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="iin">Обязательное поле *</label>
+          <input
+            id="phoneNumber"
+            name="phoneNumber"
+            type="tel"
+            maxLength={11}
+            placeholder="Ваш номер телефона 7...."
             onChange={onChangeHandler}
           />
         </div>
