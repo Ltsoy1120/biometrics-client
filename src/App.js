@@ -185,7 +185,7 @@ function App() {
   const onClickHandler = () => {
     const getToken = async () => {
       await fetch(
-        `https://biometrics.paydala.kz/api/verification/organization/token`,
+        `https://test-biometrics.paydala.kz/api/verification/organization/token`,
         {
           method: "POST",
           headers: {
