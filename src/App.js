@@ -148,8 +148,10 @@ import { frame } from "./frame"
 // export default App
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL
-  const BASE_URL = process.env.REACT_APP_BASE_URL
+  const API_URL =
+    process.env.REACT_APP_API_URL ?? "https://test-biometrics.paydala.kz/api/"
+  const BASE_URL =
+    process.env.REACT_APP_BASE_URL ?? "https://test-biometrics.paydala.kz/"
 
   const [user, setUser] = useState({
     userId: ""
@@ -162,21 +164,20 @@ function App() {
   })
 
   const [personalData, setPersonalData] = useState()
+  console.log("API_URL", API_URL)
+  console.log("BASE_URL", BASE_URL)
   console.log("state", state)
 
   useEffect(() => {
     const getPersonalData = async userId => {
-      await fetch(
-        `https://biometrics.paydala.kz/api/verification/personal/data/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            accept: "*/*",
-            "X-API-KEY": "test",
-            "X-API-SECRET": "secret"
-          }
+      await fetch(`${API_URL}verification/personal/data/${userId}`, {
+        method: "GET",
+        headers: {
+          accept: "*/*",
+          "X-API-KEY": "test",
+          "X-API-SECRET": "secret"
         }
-      )
+      })
         .then(response => response.json())
         .then(data => setPersonalData(data))
     }
