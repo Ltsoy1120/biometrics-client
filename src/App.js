@@ -148,6 +148,9 @@ import { frame } from "./frame"
 // export default App
 
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL
+  const BASE_URL = process.env.REACT_APP_BASE_URL
+
   const [user, setUser] = useState({
     userId: ""
   })
@@ -184,19 +187,16 @@ function App() {
 
   const onClickHandler = () => {
     const getToken = async () => {
-      await fetch(
-        `https://test-biometrics.paydala.kz/api/verification/organization/token`,
-        {
-          method: "POST",
-          headers: {
-            accept: "*/*",
-            "Content-Type": "application/json",
-            "X-API-KEY": "test",
-            "X-API-SECRET": "secret"
-          },
-          body: JSON.stringify(user)
-        }
-      )
+      await fetch(`${API_URL}verification/organization/token`, {
+        method: "POST",
+        headers: {
+          accept: "*/*",
+          "Content-Type": "application/json",
+          "X-API-KEY": "test",
+          "X-API-SECRET": "secret"
+        },
+        body: JSON.stringify(user)
+      })
         .then(response => response.json())
         .then(data => setState({ ...state, token: data.token }))
     }
@@ -394,7 +394,7 @@ function App() {
         id="frame"
         title="Frame"
         name="biometrics"
-        src="https://biometrics.paydala.kz/frame/"
+        src={`${BASE_URL}`}
         allow="camera"
         frameBorder="1"
         width="500px"
