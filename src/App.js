@@ -151,7 +151,7 @@ function App() {
   const API_URL =
     process.env.REACT_APP_API_URL ?? "https://test-biometrics.paydala.kz/api/"
   const BASE_URL =
-    process.env.REACT_APP_BASE_URL ?? "https://test-biometrics.paydala.kz/"
+    process.env.REACT_APP_BASE_URL ?? "https://test-biometrics.paydala.kz/frame"
 
   const [user, setUser] = useState({
     userId: ""
