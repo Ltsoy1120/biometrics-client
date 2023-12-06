@@ -165,6 +165,7 @@ function App() {
   console.log("API_URL", API_URL)
   console.log("BASE_URL", BASE_URL)
   console.log("state", state)
+  console.log("disabled", !state.userId && state.phoneNumber.length !== 11)
 
   useEffect(() => {
     const getPersonalData = async userId => {
@@ -392,7 +393,7 @@ function App() {
         <button
           type="button"
           onClick={onClickHandler}
-          disabled={!state.userId && !state.phoneNumber}
+          disabled={!state.userId && state.phoneNumber.length !== 11}
         >
           Отправить запрос
         </button>
