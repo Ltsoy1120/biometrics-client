@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import "./App.css"
+import InputMask from "react-input-mask"
 import { frame } from "./frame"
+import "./App.css"
 
 // function App() {
 //   const [user, setUser] = useState({
@@ -153,9 +154,6 @@ function App() {
   const BASE_URL =
     process.env.REACT_APP_BASE_URL ?? "https://test-biometrics.paydala.kz/frame"
 
-  const [user, setUser] = useState({
-    userId: ""
-  })
   const [state, setState] = useState({
     userId: "",
     token: "",
@@ -184,7 +182,7 @@ function App() {
     if (state.token && state.phoneNumber) {
       frame.startFrame(state, getPersonalData)
     }
-  }, [state])
+  }, [state, API_URL])
 
   const onClickHandler = () => {
     const getToken = async () => {
@@ -196,20 +194,22 @@ function App() {
           "X-API-KEY": "test",
           "X-API-SECRET": "secret"
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify({ userId: state.userId })
       })
         .then(response => response.json())
         .then(data => setState({ ...state, token: data.token }))
     }
     getToken()
-    // frame.openFrame(state)
   }
 
   const onChangeHandler = e => {
     const value = e.target.value
     const name = e.target.name
-    setUser({ ...user, [name]: value })
-    setState({ ...state, [name]: value })
+    if (name === "phoneNumber") {
+      setState({ ...state, phoneNumber: value.replace(/\D/g, "") })
+    } else {
+      setState({ ...state, [name]: value })
+    }
   }
 
   // const personalData = {
@@ -378,12 +378,14 @@ function App() {
         </div>
         <div className="input-field">
           <label htmlFor="iin">Обязательное поле *</label>
-          <input
+          <InputMask
+            mask="+7 (999) 999 99 99"
+            maskChar="_"
             id="phoneNumber"
             name="phoneNumber"
             type="tel"
-            maxLength={11}
-            placeholder="Ваш номер телефона 7...."
+            placeholder="+7 (___) ___ __ __"
+            value={state.phoneNumber}
             onChange={onChangeHandler}
           />
         </div>
