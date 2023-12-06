@@ -389,7 +389,11 @@ function App() {
             onChange={onChangeHandler}
           />
         </div>
-        <button type="button" onClick={onClickHandler}>
+        <button
+          type="button"
+          onClick={onClickHandler}
+          disabled={!state.userId && !state.phoneNumber}
+        >
           Отправить запрос
         </button>
       </form>
