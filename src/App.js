@@ -198,7 +198,11 @@ function App() {
         body: JSON.stringify({ userId: state.userId })
       })
         .then(response => response.json())
-        .then(data => setState({ ...state, token: data.token }))
+        .then(data => {
+          setError(data)
+
+          setState({ ...state, token: data.token })
+        })
         .catch(error => {
           setError(error)
         })
@@ -401,8 +405,8 @@ function App() {
           Отправить запрос
         </button>
       </form>
-      <p>{JSON.stringify(state)}</p>
-      <p>{JSON.stringify(error)}</p>
+      <p>state: {JSON.stringify(state)}</p>
+      <p>data: {JSON.stringify(error)}</p>
       <iframe
         id="frame"
         title="Frame"
