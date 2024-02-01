@@ -160,6 +160,7 @@ function App() {
     iin: "",
     phoneNumber: ""
   })
+  const [error, setError] = useState()
 
   const [personalData, setPersonalData] = useState()
   console.log("API_URL", API_URL)
@@ -198,6 +199,9 @@ function App() {
       })
         .then(response => response.json())
         .then(data => setState({ ...state, token: data.token }))
+        .catch(error => {
+          setError(error)
+        })
     }
     getToken()
   }
@@ -398,6 +402,7 @@ function App() {
         </button>
       </form>
       <p>{JSON.stringify(state)}</p>
+      <p>{JSON.stringify(error)}</p>
       <iframe
         id="frame"
         title="Frame"
