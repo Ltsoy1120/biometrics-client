@@ -165,7 +165,6 @@ function App() {
   console.log("API_URL", API_URL)
   console.log("BASE_URL", BASE_URL)
   console.log("state", state)
-  console.log("disabled", !state.userId && state.phoneNumber.length !== 11)
 
   useEffect(() => {
     const getPersonalData = async userId => {
@@ -398,6 +397,7 @@ function App() {
           Отправить запрос
         </button>
       </form>
+      <p>{JSON.stringify(state)}</p>
       <iframe
         id="frame"
         title="Frame"
