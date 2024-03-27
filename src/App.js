@@ -200,7 +200,6 @@ function App() {
         .then(response => response.json())
         .then(data => {
           setError(data)
-
           setState({ ...state, token: data.token })
         })
         .catch(error => {
@@ -411,7 +410,8 @@ function App() {
         id="frame"
         title="Frame"
         name="biometrics"
-        src={`${BASE_URL}`}
+        // src={`${BASE_URL}`} //https://test-biometrics.paydala.kz/frame
+        src="https://test-biometrics.paydala.kz/public/"
         allow="camera"
         frameBorder="1"
         width="500px"
