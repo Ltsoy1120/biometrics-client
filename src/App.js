@@ -410,8 +410,8 @@ function App() {
         id="frame"
         title="Frame"
         name="biometrics"
-        // src={`${BASE_URL}`} //https://test-biometrics.paydala.kz/frame
-        src="https://test-biometrics.paydala.kz/public/"
+        src={`${BASE_URL}`} //https://test-biometrics.paydala.kz/frame
+        // src="https://test-biometrics.paydala.kz/public/"
         allow="camera"
         frameBorder="1"
         width="500px"
