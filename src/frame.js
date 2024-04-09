@@ -9,22 +9,44 @@ export const frame = {
       win.postMessage(JSON.stringify(state), "*")
     }
 
-    window.addEventListener(
-      "message",
-      function (event) {
-        var data = event.data
-        if (
-          (data === "IDENTIFIED" ||
-            data === "NOT_IDENTIFIED" ||
-            data === "BLOCKED") &&
-          state.userId
-        ) {
-          console.log("client======data======onmessage", data)
-          getPersonalData(state.userId)
-          frame.style.display = "none"
-        }
-      },
-      false
-    )
+    // window.addEventListener(
+    //   "message",
+    //   function (event) {
+    //     var data = event.data
+    //     if (
+    //       (data === "IDENTIFIED" ||
+    //         data === "NOT_IDENTIFIED" ||
+    //         data === "BLOCKED") &&
+    //       state.userId
+    //     ) {
+    //       console.log("client======data======onmessage", data)
+    //       getPersonalData(state.userId)
+    //       frame.style.display = "none"
+    //     }
+    //   },
+    //   false
+    // )
+
+    // Функция-обработчик события message
+    const messageHandler = function (event) {
+      const data = event.data
+      console.log("client======прилетела data", data)
+      if (
+        (data === "IDENTIFIED" ||
+          data === "NOT_IDENTIFIED" ||
+          data === "BLOCKED") &&
+        state.userId
+      ) {
+        console.log("client======data======onmessage", data)
+        getPersonalData(state.userId)
+        frame.style.display = "none"
+
+        // Удаляем слушателя события message после получения сообщения
+        window.removeEventListener("message", messageHandler)
+      }
+    }
+
+    // Добавляем слушателя события message
+    window.addEventListener("message", messageHandler, false)
   }
 }

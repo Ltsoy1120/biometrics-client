@@ -411,11 +411,10 @@ function App() {
         title="Frame"
         name="biometrics"
         src={`${BASE_URL}`} //https://test-biometrics.paydala.kz/frame
-        // src="https://test-biometrics.paydala.kz/public/"
         allow="camera"
         frameBorder="1"
         width="500px"
-        // height={document.body.height()}
+        // height="800px"
         scrolling="no"
         style={{ display: "none" }}
       ></iframe>
