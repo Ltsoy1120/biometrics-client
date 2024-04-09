@@ -4,9 +4,10 @@
   flex-direction: column;
   align-items: center;
 }
+
 button {
   margin-bottom: 20px;
-  width: 100%;
+  width: 200px;
   background: rgb(199, 198, 198);
   padding: 10px 15px;
   border-radius: 5px;
@@ -15,12 +16,19 @@ button {
   font-size: 16px;
   font-weight: bold;
 }
+
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 }
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
 .input-field {
   display: flex;
   flex-direction: column;
