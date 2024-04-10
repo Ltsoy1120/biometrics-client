@@ -165,21 +165,23 @@ function App() {
           </p>
 
           <div class="table">
-            {Object.entries(personalData.personalData.person).map(item =>
-              item[0] === "documents" && item[1].document?.length > 0 ? (
-                item[1].document.map(doc => (
-                  <div class="tr" key={doc.type?.code}>
-                    <div class="td">{doc.type.nameRu}</div>
-                    <div class="td">{JSON.stringify(doc)}</div>
+            {personalData &&
+              personalData.personalData &&
+              Object.entries(personalData.personalData.person).map(item =>
+                item[0] === "documents" && item[1].document?.length > 0 ? (
+                  item[1].document.map(doc => (
+                    <div class="tr" key={doc.type?.code}>
+                      <div class="td">{doc.type.nameRu}</div>
+                      <div class="td">{JSON.stringify(doc)}</div>
+                    </div>
+                  ))
+                ) : (
+                  <div class="tr" key={item.type?.code}>
+                    <div class="td">{item[0]}</div>
+                    <div class="td">{JSON.stringify(item[1])}</div>
                   </div>
-                ))
-              ) : (
-                <div class="tr" key={item.type?.code}>
-                  <div class="td">{item[0]}</div>
-                  <div class="td">{JSON.stringify(item[1])}</div>
-                </div>
-              )
-            )}
+                )
+              )}
           </div>
         </div>
       )}
