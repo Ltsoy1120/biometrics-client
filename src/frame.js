@@ -5,7 +5,9 @@ export const frame = {
     let win = window.frames.biometrics
 
     if (win) {
-      frame.style.display = "block"
+      frame.style.display = "block" // открываем фрейм
+
+      // отправляем данные в biometrics
       win.postMessage(JSON.stringify(state), "*")
     }
 
@@ -18,9 +20,10 @@ export const frame = {
           data === "BLOCKED") &&
         state.userId
       ) {
-        console.log("client======data======onmessage", data)
+        // вызываем пользовательскую функцию для получения персональных данных
         getPersonalData(state.userId)
-        frame.style.display = "none"
+
+        frame.style.display = "none" // закрываем фрейм
 
         window.removeEventListener("message", messageHandler)
       }

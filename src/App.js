@@ -17,12 +17,10 @@ function App() {
     apiKey: "",
     apiSecret: ""
   })
+
   const [error, setError] = useState()
 
   const [personalData, setPersonalData] = useState()
-  console.log("API_URL", API_URL)
-  console.log("BASE_URL", BASE_URL)
-  console.log("state", state)
 
   useEffect(() => {
     const getPersonalData = async userId => {
@@ -149,7 +147,7 @@ function App() {
         src={`${BASE_URL}`} //https://test-biometrics.paydala.kz/frame
         allow="camera"
         frameBorder="1"
-        width="500px"
+        width="800px"
         // height="800px"
         scrolling="no"
         style={{ display: "none" }}
