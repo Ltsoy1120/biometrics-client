@@ -14,16 +14,25 @@ export const frame = {
     // Функция-обработчик события message
     const messageHandler = function (event) {
       const data = event.data
+      if (data === "SERVER_ERROR") {
+        frame.style.display = "none" // Закрываем фрейм
+        return
+      }
+
       if (
-        (data === "IDENTIFIED" ||
-          data === "NOT_IDENTIFIED" ||
-          data === "BLOCKED") &&
+        data &&
+        typeof data === "object" &&
+        (data.status === "IDENTIFIED" ||
+          data.status === "NOT_IDENTIFIED" ||
+          data.status === "BLOCKED") &&
         state.userId
       ) {
-        // вызываем пользовательскую функцию для получения персональных данных
-        getPersonalData(state.userId)
+        if (data.subStatus && data.subStatus !== "UNFINISHED") {
+          // Вызываем пользовательскую функцию для получения персональных данных
+          getPersonalData(state.userId)
+        }
 
-        frame.style.display = "none" // закрываем фрейм
+        frame.style.display = "none" // Закрываем фрейм
 
         window.removeEventListener("message", messageHandler)
       }
