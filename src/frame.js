@@ -14,11 +14,11 @@ export const frame = {
     // Функция-обработчик события message
     const messageHandler = function (event) {
       const data = event.data
+      console.log("message from biometrics", data)
       if (data === "SERVER_ERROR") {
         frame.style.display = "none" // Закрываем фрейм
         return
       }
-      console.log("message from biometrics", data)
       if (
         data &&
         typeof data === "object" &&
