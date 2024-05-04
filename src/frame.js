@@ -18,7 +18,7 @@ export const frame = {
         frame.style.display = "none" // Закрываем фрейм
         return
       }
-
+      console.log("message from biometrics", data)
       if (
         data &&
         typeof data === "object" &&
