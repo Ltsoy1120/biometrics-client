@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import InputMask from "react-input-mask"
 import { frame } from "./frame"
 import "./App.css"
@@ -73,6 +73,31 @@ function App() {
       setState({ ...state, [name]: value })
     }
   }
+
+  useEffect(() => {
+    const handleLinkClick = event => {
+      // Проверяем, что событие инициировано элементом <a>
+      const target = event.target
+      if (target.tagName === "A") {
+        event.preventDefault()
+        const targetURL = target.href
+
+        // Меняем URL фрейма на целевой URL
+        const iframe = document.getElementById("frame")
+        if (iframe) {
+          iframe.src = targetURL
+        }
+      }
+    }
+
+    // Добавляем обработчик события
+    document.addEventListener("click", handleLinkClick)
+
+    // Удаляем обработчик события при размонтировании компонента
+    return () => {
+      document.removeEventListener("click", handleLinkClick)
+    }
+  }, [])
 
   return (
     <div className="App">

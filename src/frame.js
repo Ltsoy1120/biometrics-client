@@ -3,6 +3,7 @@ export const frame = {
     const frame = document.getElementById("frame")
     frame.height = frame.contentWindow.parent.innerHeight
     let win = window.frames.biometrics
+    console.log("state", state)
 
     if (win) {
       frame.style.display = "block" // открываем фрейм
