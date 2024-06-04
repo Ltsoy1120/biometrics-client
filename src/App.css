@@ -66,6 +66,11 @@ input {
   width: 70%;
 }
 
+p {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
 @media (max-width: 560px) {
   .form,
   button,
@@ -84,5 +89,9 @@ input {
 
   .td:first-child {
     background-color: antiquewhite;
+  }
+
+  .row {
+    flex-wrap: wrap;
   }
 }

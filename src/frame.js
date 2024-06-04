@@ -1,7 +1,9 @@
 export const frame = {
   startFrame: (state, getPersonalData) => {
     const frame = document.getElementById("frame")
-    frame.height = frame.contentWindow.parent.innerHeight
+    if (frame && frame.contentWindow) {
+      frame.style.height = `${window.innerHeight}px`
+    }
     let win = window.frames.biometrics
     console.log("state", state)
 

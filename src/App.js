@@ -74,31 +74,6 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    const handleLinkClick = event => {
-      // Проверяем, что событие инициировано элементом <a>
-      const target = event.target
-      if (target.tagName === "A") {
-        event.preventDefault()
-        const targetURL = target.href
-
-        // Меняем URL фрейма на целевой URL
-        const iframe = document.getElementById("frame")
-        if (iframe) {
-          iframe.src = targetURL
-        }
-      }
-    }
-
-    // Добавляем обработчик события
-    document.addEventListener("click", handleLinkClick)
-
-    // Удаляем обработчик события при размонтировании компонента
-    return () => {
-      document.removeEventListener("click", handleLinkClick)
-    }
-  }, [])
-
   return (
     <div className="App">
       <form className="form">
@@ -173,7 +148,7 @@ function App() {
         allow="camera"
         frameBorder="1"
         width="800px"
-        // height="800px"
+        // height="100svh"
         scrolling="no"
         style={{ display: "none" }}
       ></iframe>
