@@ -5,9 +5,9 @@ import "./App.css"
 
 function App() {
   const API_URL =
-    process.env.REACT_APP_API_URL ?? "https://biometrics.paydala.kz/api/"
+    process.env.REACT_APP_API_URL ?? "https://test-biometrics.paydala.kz/api/"
   const BASE_URL =
-    process.env.REACT_APP_BASE_URL ?? "https://biometrics.paydala.kz/frame"
+    process.env.REACT_APP_BASE_URL ?? "https://test-biometrics.paydala.kz/frame"
 
   const [state, setState] = useState({
     userId: "",
@@ -28,8 +28,8 @@ function App() {
         method: "GET",
         headers: {
           accept: "*/*",
-          "X-API-KEY": state.apiKey ?? "test",
-          "X-API-SECRET": state.apiSecret ?? "secret"
+          "X-API-KEY": state.apiKey ?? "test", // winline
+          "X-API-SECRET": state.apiSecret ?? "secret" // vQunk2u4cDyHC8cRQpvR
         }
       })
         .then(response => response.json())
