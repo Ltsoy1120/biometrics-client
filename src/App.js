@@ -5,9 +5,9 @@ import "./App.css"
 
 function App() {
   const API_URL =
-    process.env.REACT_APP_API_URL ?? "https://test-biometrics.paydala.kz/api/"
+    process.env.REACT_APP_API_URL ?? "https://biometrics.paydala.kz/api/"
   const BASE_URL =
-    process.env.REACT_APP_BASE_URL ?? "https://test-biometrics.paydala.kz/frame"
+    process.env.REACT_APP_BASE_URL ?? "https://biometrics.paydala.kz/frame"
 
   const [state, setState] = useState({
     userId: "",
@@ -144,7 +144,7 @@ function App() {
         id="frame"
         title="Frame"
         name="biometrics"
-        src={`${BASE_URL}`} //https://test-biometrics.paydala.kz/frame
+        src={`${BASE_URL}`} //https://biometrics.paydala.kz/frame
         allow="camera"
         frameBorder="1"
         width="800px"
